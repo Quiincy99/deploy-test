@@ -1,0 +1,29 @@
+name: test-deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: action/checkout@v4
+
+      - name: setup .NET
+        uses: action/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore ./deploy-test.csproj
+
+      - name: Build
+        run: dotnet build ./deploy-test.csproj --configuration=release --no-restore
+
+      - name: Pubish
+        run: dotnet publish ./deploy-test.csproj --configuration=release --no-build
+        
