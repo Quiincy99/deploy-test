@@ -4,26 +4,25 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - main
+      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: action/checkout@v4
+      - uses: action/checkout@v3
 
       - name: setup .NET
-        uses: action/setup-dotnet@v4
+        uses: action/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "8.0.x"
 
       - name: Restore
-        run: dotnet restore ./deploy-test.csproj
+        run: dotnet restore ./deploy-test.sln
 
       - name: Build
-        run: dotnet build ./deploy-test.csproj --configuration=release --no-restore
+        run: dotnet build ./deploy-test.sln --configuration=release --no-restore
 
       - name: Pubish
-        run: dotnet publish ./deploy-test.csproj --configuration=release --no-build
-        
+        run: dotnet publish ./deploy-test.sln --configuration=release --no-build
