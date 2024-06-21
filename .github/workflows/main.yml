@@ -19,10 +19,10 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Restore
-        run: dotnet restore ./deploy-test.sln
+        run: dotnet restore ./deploy-test.csproj
 
       - name: Build
-        run: dotnet build ./deploy-test.sln --configuration=release --no-restore
+        run: dotnet build ./deploy-test.csproj --configuration=release --no-restore
 
       - name: Pubish
-        run: dotnet publish ./deploy-test.sln --configuration=release --no-build
+        run: dotnet publish ./deploy-test.csproj --configuration=release --no-build
